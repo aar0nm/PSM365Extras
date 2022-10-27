@@ -1,3 +1,11 @@
+
+function Get-MBXCachePath {
+    $CachesDir = Get-CachesDir
+    $MBXCP = "$CachesDir\MemberOfSMCache.csv"
+
+    return $MBXCP
+}
+
 function Get-MemberOfCache {
     
     <#
@@ -16,17 +24,14 @@ function Get-MemberOfCache {
 	    .OUTPUTS
 	    boolean
 	#>
-
-    $CachesDir = Get-CachesDir
-    
-    $MBXCachePath = "$CachesDir\MemberOfSMCache.csv"
+    $MBXCachePath = Get-MBXCachePath
 
     if(-not(Test-Path -Path $MBXCachePath -PathType Leaf)){
         try {
             [void](New-Item -ItemType File -Path $MBXCachePath -Force)
             Set-ItemProperty -Path $MBXCachePath -Name IsReadOnly -Value $true
 
-            return $true
+            return
         }
         catch {
             throw $_.Exception.Message
@@ -42,8 +47,49 @@ function Get-MemberOfCache {
             Remove-Item $MBXCachePath -Force
             New-Item -ItemType File -Path $MBXCachePath -Force
             Set-ItemProperty -Path $MBXCachePath -Name IsReadOnly -Value $true
-            return $true
+            return
         }
     }
-    return $false
+    
+}
+
+function Set-MemberOfCache {
+
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory,ValueFromPipeline)]
+        [System.Array]
+        $MBXs
+    )
+    $MBXCachePath = Get-MBXCachePath
+    try {
+        $MBXs | Export-Csv -Path $MBXCachePath -NoTypeInformation -Force
+        return
+    }
+    catch {
+        Write-Error "[$($_.Exception.GetType().FullName)] - $($_.Exception.Message)"
+        break
+    }
+    
+
+}
+
+function Set-MBXsCache {
+
+    $importMBXs = Get-MBXCount
+
+    if ($importMBXs -gt 0) {
+        return $true
+    }
+    elseif ($importMBXs -le 0) {
+
+        $MBXs = Get-SharedMBXs
+
+        Set-MemberOfCache -MBXs $MBXs
+
+        return $true
+        
+        
+    }
+    
 }
