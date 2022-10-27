@@ -36,6 +36,6 @@ function Get-MBXCount {
     if ($titles) {[void]($CSVREADER.ReadLine())}
     while($CSVREADER.ReadLine() -ne $null){$MBXCOUNT++}
     ($CSVREADER.Dispose())
-
+    Write-Verbose $MBXCOUNT
     return $MBXCOUNT
 }
