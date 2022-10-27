@@ -1,2 +1,2 @@
 # PSM365Extras
-PS modules that includes some extras that utilise existing M365 PS modules.
+Basic pre-release PowerShell 5.0 module that includes extra homebrew scripet that I created in an attempt to streamline my daily work life.
