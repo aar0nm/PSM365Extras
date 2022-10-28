@@ -90,33 +90,26 @@ function Get-MemberOfSMBXs {
     
     $userperms = Get-UserInSMBXs -Email $email -MBXs $MBXs.PrimarySmtpAddress
 
-    Clear-Host
-
-    Write-Host "Complete! Results Below!"
-
     $userperms | Format-List
 
-    # if ($SaveToCSV -ne $null) {
+    if ($SaveToCSV -ne $null) {
     
     
-    #     $date = Get-Date -Format "HH-mm-ss(dd-MM-yyyy)"
-    #     $join = ($date, "-", $username, ".csv")
+        $date = Get-Date -Format "HH-mm-ss(dd-MM-yyyy)"
+        $join = ($date, "-", $username, ".csv")
 
-    #     $filename = -Join $join
-    #     $csvpath = Join-Path -Path $SaveToCSV -ChildPath $filename
+        $filename = -Join $join
+        $csvpath = Join-Path -Path $SaveToCSV -ChildPath $filename
 
-    #     Write-Host "********************************************************************************"
-    #     Write-Host "Saving to..." $csvpath
-    #     Write-Host "********************************************************************************"
-
+        Write-Host "Saved to file..."
     
-    #     New-Item -ItemType File -Path $csvpath -Force
-    #     $userperms | Export-CSV -Path $csvpath -NoTypeInformation -Force
+        New-Item -ItemType File -Path $csvpath -Force
+        $userperms | Export-CSV -Path $csvpath -NoTypeInformation -Force
 
-    # } 
+    }  
 
-    pause
- 
+    $userperms | Format-List
+    
 }
    
 
