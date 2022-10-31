@@ -51,10 +51,11 @@ function Get-MemberOfSMBXs {
     
     $ErrorActionPreference = "Stop"
     $CachesDir = Get-CachesDir
-    $MBXCachePath = "$CachesDir\MemberOfSMCache.csv"
+    $MBXCachePath = "$CachesDir\f8b1494d-e56b-4ec0-9c88-6bc232c54ed5.tmp"
+    
     
     $Elevated = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
-    #$username = $Email.Split('@')[0]
+    $username = $Email.Split('@')[0]
 
     if ( -not $Elevated ) {
         throw "This module requires elevation."
@@ -65,28 +66,33 @@ function Get-MemberOfSMBXs {
     Connect-ExchangeOnline -ShowBanner:$false
 
     try {
-
+        Write-Host "Checking if $Email exists!"
         Get-User $Email -wa Stop -ea Stop
     }
     catch {
-        Write-Error "[$($_.Exception.GetType().FullName)] - $($_.Exception.Message)"
+        Write-Error "[$($_.Exception.GetType().FullName)] - $($_.Exception.Message)" -TargetObject 'Get-User'
         break
     }
 
     try {
-        Get-MemberOfCache
+        $private:cache = Get-MemberOfCache
     }
     catch {
-        Write-Error "$($_.Exception.Message)"
+        Write-Error "$($_.Exception.Message)" -TargetObject 'Get-MemberOfCache'
         break
     }
 
-
-    $cache = Set-MBXsCache
-
-    if($cache){
-        $MBXs = @(Import-Csv $MBXCachePath)
-    }
+    if($private:cache){
+        Write-Host "Getting Mailboxes from EXO..."
+        $MBXs = Get-SharedMBXs
+        Set-MemberOfCache -MBXs $MBXs
+        
+                        
+    }elseif($private:cache -eq $false){
+        $MBXs = Import-Csv -Path $MBXCachePath
+        Write-Host "Importing cache..."
+        
+    }else{}
     
     $userperms = Get-UserInSMBXs -Email $email -MBXs $MBXs.PrimarySmtpAddress
 
@@ -101,15 +107,12 @@ function Get-MemberOfSMBXs {
         $filename = -Join $join
         $csvpath = Join-Path -Path $SaveToCSV -ChildPath $filename
 
-        Write-Host "Saved to file..."
+        Write-Host "Saved to $csvpath"
     
         New-Item -ItemType File -Path $csvpath -Force
         $userperms | Export-CSV -Path $csvpath -NoTypeInformation -Force
 
-    }  
-
-    $userperms | Format-List
-    
+    }     
 }
    
 
