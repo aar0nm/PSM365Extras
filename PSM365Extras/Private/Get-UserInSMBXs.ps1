@@ -25,6 +25,7 @@ function Get-UserInSMBXs {
     )
     
     $UserSMBXPerms = @()
+    Clear-Host
     foreach ($MBX in $MBXs) {
 
         $i++
@@ -35,12 +36,13 @@ function Get-UserInSMBXs {
         if ([string]::IsNullOrEmpty($SMBXCheck)) {} else {
 
             $UserSMBXPerms += [pscustomobject]@{
-                MailboxName = $UserSMBXPerms.Identity
-                User        = $UserSMBXPerms.User
-                Permissions = $UserSMBXPerms.AccessRights
+                MailboxName = $SMBXCheck.Identity
+                MailboxAddress = $MBX
+                User        = $SMBXCheck.User
+                Permissions = $SMBXCheck.AccessRights
             }
         }
     }
-
+    Clear-Host
     return $UserSMBXPerms
 }

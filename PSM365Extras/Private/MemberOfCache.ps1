@@ -1,7 +1,7 @@
 
 function Get-MBXCachePath {
     $CachesDir = Get-CachesDir
-    $MBXCP = "$CachesDir\MemberOfSMCache.csv"
+    $MBXCP = "$CachesDir\f8b1494d-e56b-4ec0-9c88-6bc232c54ed5.tmp"
 
     return $MBXCP
 }
@@ -24,43 +24,76 @@ function Get-MemberOfCache {
 	    .OUTPUTS
 	    boolean
 	#>
-    $MBXCachePath = Get-MBXCachePath
 
-    if(-not(Test-Path -Path $MBXCachePath -PathType Leaf)){
+    
+    $MBXCachePath = Get-MBXCachePath
+    $timespan = New-TimeSpan -Hours 6
+
+    if (-not(Test-Path -Path $MBXCachePath -PathType Leaf)) {
+        Write-Host "File not found..."
         try {
             [void](New-Item -ItemType File -Path $MBXCachePath -Force)
             Set-ItemProperty -Path $MBXCachePath -Name IsReadOnly -Value $true
-
-            return
+            Write-Host "Creating new cache.. (This run may take longer than usual!)"
+            return $true
         }
         catch {
             throw $_.Exception.Message
             break
         }
     }
-    Else{
+    else{}
+    $lastWrite = (Get-Item $MBXCachePath).LastWriteTime
+    if (((Get-Date) - $lastWrite) -gt $timespan) {
+        Write-Host "Cache is out of date..."        
+        try {
 
-        $lastWrite = (Get-Item $MBXCachePath).LastWriteTime
-        $timespan = New-TimeSpan -Hours 6
-
-        if(((Get-Date) - $lastWrite) -gt $timespan){
             Remove-Item $MBXCachePath -Force
             New-Item -ItemType File -Path $MBXCachePath -Force
             Set-ItemProperty -Path $MBXCachePath -Name IsReadOnly -Value $true
-            return
+            Write-Host "Creating new cache.. (This run may take longer than usual!)"
+            return $true
         }
+        catch {
+            throw $_.Exception.Message
+            break
+        }
+
     }
-    
+    else{}
+
+    if ((Get-MBXCount) -le 0) {
+        Write-Host "Cache is empty..."
+        try {
+
+            Remove-Item $MBXCachePath -Force
+            New-Item -ItemType File -Path $MBXCachePath -Force
+            Set-ItemProperty -Path $MBXCachePath -Name IsReadOnly -Value $true
+            Write-Host "Creating new cache.. (This run may take longer than usual!)"
+            return $true
+        }
+        catch {
+            throw $_.Exception.Message
+            break
+        }
+
+    }
+    else{
+        return $false
+    }
+
 }
+
 
 function Set-MemberOfCache {
 
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory,ValueFromPipeline)]
+        [Parameter(Mandatory, ValueFromPipeline)]
         [System.Array]
         $MBXs
     )
+
     $MBXCachePath = Get-MBXCachePath
     try {
         $MBXs | Export-Csv -Path $MBXCachePath -NoTypeInformation -Force
@@ -72,24 +105,4 @@ function Set-MemberOfCache {
     }
     
 
-}
-
-function Set-MBXsCache {
-
-    $importMBXs = Get-MBXCount
-
-    if ($importMBXs -gt 0) {
-        return $true
-    }
-    elseif ($importMBXs -le 0) {
-
-        $MBXs = Get-SharedMBXs
-
-        Set-MemberOfCache -MBXs $MBXs
-
-        return $true
-        
-        
-    }
-    
 }

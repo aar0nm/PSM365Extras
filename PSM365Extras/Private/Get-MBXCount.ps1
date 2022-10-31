@@ -30,7 +30,7 @@ function Get-MBXCount {
 
     $CachesDir = Get-CachesDir
     Write-Verbose $CachesDir
-    $MBXCachePath = "$CachesDir\MemberOfSMCache.csv"
+    $MBXCachePath = "$CachesDir\f8b1494d-e56b-4ec0-9c88-6bc232c54ed5.tmp"
     [int]$MBXCOUNT = 0
     $CSVREADER = New-Object IO.StreamReader $MBXCachePath
     if ($titles) {[void]($CSVREADER.ReadLine())}

@@ -16,6 +16,6 @@
     }
 
     function Get-CachesDir {
-        return "$PSScriptRoot\caches"
+        return [System.IO.Path]::GetTempPath()
     }
     
