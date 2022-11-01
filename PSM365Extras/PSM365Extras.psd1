@@ -12,7 +12,7 @@
 RootModule = 'PSM365Extras'
 
 # Version number of this module.
-ModuleVersion = '0.1.2'
+ModuleVersion = '0.1.3'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -31,7 +31,7 @@ Copyright = 'Copyright 2022 Aaron Mennitto. This program is free software: you c
 it under the terms of the GNU General Public License.'
 
 # Description of the functionality provided by this module
-Description = 'A Basic Pre-Release PowerShell module that allows users to easily execute functions that are not normally available in the current EXOManagement command set. `n See Project Site for more information.'
+Description = 'A Basic Pre-Release PowerShell module that allows users to easily execute functions that are not normally available in the current EXOManagement command set. See Project Site for more information.'
 
 # Minimum version of the Windows PowerShell engine required by this module
 PowerShellVersion = '5.0'
