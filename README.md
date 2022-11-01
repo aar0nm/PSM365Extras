@@ -3,7 +3,9 @@
 
 A basic _**Pre-Release**_ PowerShell module that allows users to easily execute functions that are not normally available in the current management command sets.
 
-Suggestions and comments are welcome on the repo discussion page, _**go easy on me!**_ This is the first time that I have touched upon any of the slightly more advanced features of PowerShell.
+This is the first time that I have attempted to create PS module and there may be a few issues within the code! 
+
+Suggestions and comments are welcome on the repo discussion page, _**go easy on me!**_ :metal:
 
 ## Features
 
@@ -24,16 +26,18 @@ Suggestions and comments are welcome on the repo discussion page, _**go easy on 
 
 2. While using an elevated PowerShell instance navigate to where the repo clone is saved.
 
-3. Import the module.
-
-4. 
-```PowerShell
-cd C:/PSM365Extras/
-```
-5. 
-```PowerShell
-Import-Module ./PSM365Extras.psm1
-```
+3. Import the module:
+    
+    ```PowerShell
+    cd **PathToClone**
+    ```
+    
+    Example:
+        cd C:\PSM365Extras
+        
+    ```PowerShell
+    Import-Module ./PSM365Extras.psm1
+    ```
 
 ### Pre-Release (PSGallery)
 
@@ -43,9 +47,24 @@ Install-Module -Name PSM365Extras -AllowPrerelease
 
 **A dialog asking to trust installation from unknown sources may appear.**
 
+## Usage
+**List all shared mailboxes that a specific user has permissions for:**
+
+```PowerShell
+Get-MemberOfSMBXs -Email John.Smith@contoso.co.uk
+```
+
+**List all shared mailboxes that a specific user has permssions for and export the output to a auto generated CSV file in the path that is set:**
+```PowerShell
+Get-MemberOfSMBXs -Email John.Smith@contoso.co.uk -SaveToCSV C:\ExamplePath
+```
+
+_**More coming soon!**_
+
+
 ## Links
 
-- [PSGallery Module](https://www.powershellgallery.com/packages/PSM365Extras)
+-  A link to the [PowerShell Gallery](https://www.powershellgallery.com/packages/PSM365Extras) package! 
 
 ## Authors
 
