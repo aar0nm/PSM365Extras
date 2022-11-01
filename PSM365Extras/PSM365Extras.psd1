@@ -27,18 +27,8 @@ Author = 'Aaron Mennitto'
 CompanyName = 'Aaron Mennitto'
 
 # Copyright statement for this module
-Copyright = '(c) 2022 Aaron Mennitto. This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>. '
+Copyright = 'Copyright 2022 Aaron Mennitto. This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License.'
 
 # Description of the functionality provided by this module
 Description = 'Basic pre-release PowerShell 5.0 module that includes extra homebrew scripet that I created in an attempt to streamline my daily work life.'
@@ -109,19 +99,19 @@ PrivateData = @{
         Tags = @('Exchange','ExchangeOnline','EXO','Mailbox','Mailbox', 'Management','AD','M365')
 
         # A URL to the license for this module.
-        LicenseUri = 'https://github.com/aar0nm/PSM365Extras/blob/main/LICENSE'
+        LicenseUri = "https://github.com/aar0nm/PSM365Extras/blob/main/LICENSE"
 
         # A URL to the main website for this project.
-        ProjectUri = 'https://github.com/aar0nm/PSM365Extras'
+        ProjectUri = "https://github.com/aar0nm/PSM365Extras"
 
         # A URL to an icon representing this module.
-        IconUri = 'icon.png'
+        IconUri = "https://raw.githubusercontent.com/aar0nm/PSM365Extras/main/icon_gallery.png"
 
         # ReleaseNotes of this module
-        ReleaseNotes = 'Pre-Release'
+        ReleaseNotes = 'PreRelease'
 
         # Prerelease string of this module
-        Prerelease = 'This module is a pre-release version'
+        Prerelease = 'PreRelease'
 
         # Flag to indicate whether the module requires explicit user acceptance for install/update/save
         RequireLicenseAcceptance = $false
