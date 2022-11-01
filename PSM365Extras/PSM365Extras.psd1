@@ -12,7 +12,7 @@
 RootModule = 'PSM365Extras'
 
 # Version number of this module.
-ModuleVersion = '1.0.0'
+ModuleVersion = '0.1.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -27,7 +27,18 @@ Author = 'Aaron Mennitto'
 CompanyName = 'Aaron Mennitto'
 
 # Copyright statement for this module
-Copyright = '(c) 2022 Aaron Mennitto. All rights reserved.'
+Copyright = '(c) 2022 Aaron Mennitto. This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>. '
 
 # Description of the functionality provided by this module
 Description = 'Basic pre-release PowerShell 5.0 module that includes extra homebrew scripet that I created in an attempt to streamline my daily work life.'
@@ -87,7 +98,7 @@ AliasesToExport = @()
 # ModuleList = @()
 
 # List of all files packaged with this module
-# FileList = @()
+FileList = @()
 
 # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
 PrivateData = @{
@@ -95,25 +106,25 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        # Tags = @()
+        Tags = @('Exchange','ExchangeOnline','EXO','Mailbox','Mailbox', 'Management','AD','M365')
 
         # A URL to the license for this module.
-        # LicenseUri = ''
+        LicenseUri = 'https://github.com/aar0nm/PSM365Extras/blob/main/LICENSE'
 
         # A URL to the main website for this project.
-        # ProjectUri = ''
+        ProjectUri = 'https://github.com/aar0nm/PSM365Extras'
 
         # A URL to an icon representing this module.
-        # IconUri = ''
+        IconUri = 'icon.png'
 
         # ReleaseNotes of this module
-        # ReleaseNotes = ''
+        ReleaseNotes = 'Pre-Release'
 
         # Prerelease string of this module
-        # Prerelease = ''
+        Prerelease = 'This module is a pre-release version'
 
         # Flag to indicate whether the module requires explicit user acceptance for install/update/save
-        # RequireLicenseAcceptance = $false
+        RequireLicenseAcceptance = $false
 
         # External dependent modules of this module
         ExternalModuleDependencies = @('ExchangeOnlineManagement')
