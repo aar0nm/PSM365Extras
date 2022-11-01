@@ -1,7 +1,10 @@
 
 # PSM365Extras
+![plot](./PSM365Extras/icon.png)
 
 A Pre-Release PowerShell 5.0 module that will consist of tools that can be used to help assist 1st/2nd line support and technicians with some aspects of their job.
+
+Comments are welcome, go easy this is the first time i've touched upon any slightly more advanced features of PowerShell.
 
 ## Features
 
