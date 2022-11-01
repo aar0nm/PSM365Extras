@@ -37,7 +37,7 @@ Suggestions and comments are welcome on the repo discussion page, _**go easy on 
     ```PowerShell
     cd C:\PSM365Extras
     ```
-    
+
     ```PowerShell
     Import-Module ./PSM365Extras.psm1
     ```
